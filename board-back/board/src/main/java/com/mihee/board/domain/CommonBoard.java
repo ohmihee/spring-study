@@ -3,8 +3,7 @@ package com.mihee.board.domain;
 import com.mihee.board.domain.vo.BoardType;
 import com.mihee.board.domain.vo.Content;
 import com.mihee.board.domain.vo.OpenStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
