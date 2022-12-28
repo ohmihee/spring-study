@@ -1,0 +1,142 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+ext {
+    lombokVersion = '1.18.20'
+    springVersion = '5.3.13'
+    springBootVersion = '2.6.2'
+}
+
+allprojects {
+    // 해당 디렉토리의 루트 디렉토리에 존재하는 build.gradle을 포함하여 하위에 존재하는 모든 프로젝트에 포함되어 있는 build.gradle에 적용
+    group 'com.mihee.board'
+    configurations {
+        all {
+            resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        }
+    }
+}
+
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+    // apply plugin: 'maven-publish'
+//    sourceCompatibility = '11'
+//    targetCompatibility = '11'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+    }
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+        implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+        compileOnly("org.projectlombok:lombok:${lombokVersion}")
+        annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+        testImplementation("org.projectlombok:lombok:${lombokVersion}")
+        testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
+        //
+    }
+    test {
+        useJUnitPlatform()
+    }
+    compileJava.options.encoding = 'UTF-8'
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}
+
+//buildscript {
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//    }
+//}
+//
+//plugins {
+//    id 'io.spring.dependency-management' version '1.1.0'
+//}
+//
+//ext {
+//    lombokVersion = '1.18.20'
+//    springBootVersion = '2.6.2'
+//    // ext의 역할은 무엇인가?
+//    // ext는 환경 변수 등을 지정해주는 역할을 한다.
+//}
+//
+//group = 'com.mihee.board'
+//version = '0.0.1-SNAPSHOT'
+//
+//// gradle.build - allprojects/subprojects/project https://kotlinworld.com/324
+//allprojects {
+//    // 해당 디렉토리의 루트 디렉토리에 존재하는 build.gradle을 포함하여 하위에 존재하는 모든 프로젝트에 포함되어 있는 build.gradle에 적용
+//    group 'com.mihee.board'
+//    configurations {
+//        all {
+//            resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+//        }
+//    }
+//}
+//
+//subprojects {
+//    apply plugin: 'java-library'
+//    apply plugin: 'io.spring.dependency-management'
+//    apply plugin: 'maven-publish'
+//
+//    repositories {
+//        mavenCentral()
+//    }
+//
+//    // 디렉토리에 속한 하위의 프로젝트에 포함된 build.gradle에 적용
+//    task taskPrintlnOnlyOneProject {
+//        println "submodules println======="
+//    }
+//
+//    dependencies {
+//        compileOnly("org.projectlombok:lombok:${lombokVersion}")
+//        annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+//        testImplementation("org.projectlombok:lombok:${lombokVersion}")
+//        testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+//        compileOnly('org.springframework.boot:spring-boot-starter-data-mongodb')
+//        //
+//        implementation 'com.grapecity.documents:gcexcel:5.2.3'
+//    }
+//
+//}
+//
+//project(':board') {
+//    apply plugin: 'spring-boot-starter-data-mongodb-reactive'
+//    // board 프로젝트에만 적용한다.
+//
+//    // Could not find method implementation() for arguments [org.springframework.boot:spring-boot-starter-data-mongodb] on object of type org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler.
+//    // apply plungin: 부분을 추가해주면 에러가 사라진다.
+//
+//    // 특정 프로젝트에 대한 build.gradle에 적용
+//    task taskPrintlnProjects {
+//        println "submodule println===="
+//    }
+//    dependencies {
+//        implementation("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+//        compile group: 'org.springframework.data', name: 'spring-data-mongodb', version: '2.0.5.RELEASE'
+//        //
+//    }
+//}
+//
+//
+//def test = 'test'
+//// def는 보통 선언할 때 사용하는 것 같다.
+//
+////repositories {
+////    mavenCentral()
+////}
+//
+//
+////tasks.named('test') {
+////    useJUnitPlatform()
+////}
