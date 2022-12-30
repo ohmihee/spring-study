@@ -1,0 +1,7 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.6.2")
+}
