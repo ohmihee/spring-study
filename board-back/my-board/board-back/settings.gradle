@@ -1,0 +1,3 @@
+rootProject.name = 'board-back'
+include 'board'
+include 'board-user'
