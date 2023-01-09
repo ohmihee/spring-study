@@ -9,7 +9,5 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 public class Main {
     public static void main(String[] args) {
 
-        SpringApplication.run(Main.class, args);
-        System.out.println("test=========");
-    }
+        SpringApplication.run(Main.class, args);}
 }
